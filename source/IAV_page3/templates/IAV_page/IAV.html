@@ -1,0 +1,60 @@
+{%extends 'IAV/base.html'%}
+{% block IAV_action %}{% url 'new_IAV' %}{% endblock %}
+{% block act-IAV%}active{%endblock%}
+
+{% block genelist %}
+  <div class='container'>
+    <div class='row col-md-8 col-md-offset-2'>
+      <div class="col-md-2"> 
+        <p> 
+          Download Ready  
+        </p> 
+      </div>
+      <div class="col-md-2">
+        <a  download='flu_list.xlsx' href="/media/{{path}}"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </div>
+  <BR/>
+  <div class=container>
+    {% if img%}
+      <div class="span12" >
+        <img src="/media/{{img}}"/>
+      </div>
+    {% endif %}
+    {% if no_ %}
+    <div class="row col-md-8 col-md-offset-2" >
+      <p>{{no_}}<p>
+    </div>
+    {% endif %}
+  </div>
+  {% if top_go|length > 0 %}
+    <table  data-toggle="table" >
+      {% for row in top_go %}
+        {% if forloop.first %}
+          <thead>
+            <tr>
+              {% for el in row %}
+                <th>
+                  {{el}}
+                </th>
+              {% endfor %}
+            </tr>
+          </thead>
+
+        {%else%}
+          <tbody>
+            <tr>
+              {% for el in row %}
+                <td>
+                  {{el}}
+                </td>
+              {% endfor %}
+            </tr>
+          </tbody>
+        {%endif%}
+      {% endfor %}
+    </table>
+  {% endif %}
+
+{% endblock %}
