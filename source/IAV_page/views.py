@@ -68,7 +68,7 @@ def view_IAV(request,sess_i):
 
     for i in range(2):
       data.append(data1[i])
-      
+
     now = datetime.datetime.now()
     img_path = 'img/'+now.strftime("%Y/%m/%d/img%H_%M.png")
     img = '/Users/agatorano/Code/IAV/IAV.org/media/'+img_path
@@ -87,11 +87,9 @@ def view_IAV(request,sess_i):
         {'sess':sess_, 'IAVform':form,'path':path,'no_':no_}
         )
   else:
-    #bargraph_GO(data_,img)
     print(img_path)
     return render(request,
         'IAV_page/IAV.html',
-        #{'sess':sess_, 'IAVform':form,'path':path,'img':img_path}
         {'sess':sess_, 'IAVform':form,'path':path,'img':img_path}
         )
     
@@ -108,14 +106,6 @@ def new_IAV(request):
         flu=form.cleaned_data.get("flu_proteins")
       docfile_iav = form.cleaned_data.get("docfile_iav")
       form.save(for_page=sess_)
-      #IAV.objects.create(
-      #    sess=sess_,
-      #    z_score = request.POST.get("z_score"),
-      #    screens = request.POST.get("screens"),
-      #    flu_proteins = flu,
-      #    word_search = request.POST.get("word_search"),
-      #    docfile_iav = form.cleaned_data.get("docfile_iav")
-      #    )
       return redirect(sess_)
   else:
     form = IAVForm()
