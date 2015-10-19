@@ -1,5 +1,4 @@
 import sys
-sys.path.remove('/Users/agatorano/Code/metascape/metascape.org/static')
 sys.path.append("/Users/agatorano/Code/IAV/IAV.org/static")
 print(sys.path)
 import os

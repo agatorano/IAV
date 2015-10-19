@@ -2,10 +2,10 @@ from fabric.contrib.files import append, exists, sed
 from fabric.api import env, local, run
 import random
 
-REPO_URL = 'https://github.com/hostviralnetworks/metascape.org.git' 
+REPO_URL = 'https://github.com/agatorano/IAV.git' 
 
 def deploy():
-  site_folder = '/home/%s/sites/%s' % (env.user, env.host)
+  site_folder = '/home/%s/sites/IAV.org' % (env.user)
   source_folder = site_folder+'/source'
   _create_directory_structure_if_necessary(site_folder)
   _get_latest_source(site_folder)
@@ -31,7 +31,7 @@ def _get_latest_source(source_folder):
 
 
 def _update_settings(source_folder, site_name):
-  settings_path = source_folder + '/metascapeV2/settings.py'
+  settings_path = source_folder + '/IAV/settings.py'
   sed(settings_path, "DEBUG = True", "DEBUG = False") 
   #sed(settings_path,
   #  'ALLOWED_HOSTS =.+$',
@@ -47,11 +47,11 @@ def _update_settings(source_folder, site_name):
 def _update_media_file_paths(site_folder):
   for file_ in ('excel_man.py','pandas_sql.py','IAV_process.py','add_go_IAV.py'):
     file_path = '%s/static/%s' % (site_folder,file_)
-    sed(file_path,"/Users/agatorano/Code/metascape/metascape.org/media/","/home/meta_user/sites/metascape.org/media/")
+    sed(file_path,"/Users/agatorano/Code/IAV/IAV.org/media/","/home/elspeth/sites/IAV.org/media/")
   file_path = '%s/source/enrich/views.py' % (site_folder)
-  sed(file_path,"/Users/agatorano/Code/metascape/metascape.org/media/","/home/meta_user/sites/metascape.org/media/")
+  sed(file_path,"/Users/agatorano/Code/IAV/IAV.org/media/","/home/elspeth/sites/IAV.org/media/")
   file_path = '%s/source/IAV/views.py' % (site_folder)
-  sed(file_path,"/Users/agatorano/Code/metascape/metascape.org/media/","/home/meta_user/sites/metascape.org/media/")
+  sed(file_path,"/Users/agatorano/Code/IAV/IAV.org/media/","/home/elspeth/sites/IAV.org/media/")
 
 def _update_database_login(site_folder):
   file_path = '%s/static/pandas_sql.py' % (site_folder)
@@ -59,26 +59,26 @@ def _update_database_login(site_folder):
 
 def _update_static_file_paths(source_folder):
   file_path = '%s/uploads/views.py' % (source_folder)
-  sed(file_path,"/Users/agatorano/Code/metascape/metascape.org/static","/home/meta_user/sites/metascape.org/static")
+  sed(file_path,"/Users/agatorano/Code/IAV/IAV.org/static","/home/elspeth/sites/IAV.org/static")
   file_path = '%s/enrich/views.py' % (source_folder)
-  sed(file_path,"/Users/agatorano/Code/metascape/metascape.org/static","/home/meta_user/sites/metascape.org/static")
+  sed(file_path,"/Users/agatorano/Code/IAV/IAV.org/static","/home/elspeth/sites/IAV.org/static")
   file_path = '%s/IAV/views.py' % (source_folder)
-  sed(file_path,"/Users/agatorano/Code/metascape/metascape.org/static","/home/meta_user/sites/metascape.org/static")
+  sed(file_path,"/Users/agatorano/Code/IAV/IAV.org/static","/home/elspeth/sites/IAV.org/static")
   file_path = '%s/../static/IAV_process.py' % (source_folder)
-  sed(file_path,"/Users/agatorano/Code/metascape/metascape.org/static","/home/meta_user/sites/metascape.org/static")
+  sed(file_path,"/Users/agatorano/Code/IAV/IAV.org/static","/home/elspeth/sites/IAV.org/static")
   file_path = '%s/../static/analyze_go.py' % (source_folder)
-  sed(file_path,"/Users/agatorano/Code/metascape/metascape.org/static","/home/meta_user/sites/metascape.org/static")
+  sed(file_path,"/Users/agatorano/Code/IAV/IAV.org/static","/home/elspeth/sites/IAV.org/static")
 
 def _update_settings_url(source_folder):
-  file_path= '%s/metascapeV2/urls.py' % (source_folder)
+  file_path= '%s/IAV/urls.py' % (source_folder)
   sed(file_path,"\+ static\(settings\.MEDIA_URL, document_root=settings\.MEDIA_ROOT\)","")
   
 def _update_static_files(source_folder):
-  run('cd %s /home/meta_user/anaconda/envs/metascape/bin/python manage.py collectstatic --noinput' % (
+  run('cd %s /home/meta_user/anaconda3/envs/data_env/bin/python manage.py collectstatic --noinput' % (
     source_folder,
   ))
 
 def _update_database(source_folder):
-  run('cd %s /home/meta_user/anaconda/envs/metascape/bin/python manage.py migrate --noinput' % (
+  run('cd %s /home/meta_user/anaconda3/envs/data_env/bin/python manage.py migrate --noinput' % (
     source_folder,
   ))
